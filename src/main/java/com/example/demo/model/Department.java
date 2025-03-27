@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity(name = "Department")
 @Table(name = "departments")
 @NoArgsConstructor
@@ -17,5 +19,8 @@ public class Department {
 
     @Column(name = "department_name")
     private String departmentName;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Employee> employees;
 
 }
