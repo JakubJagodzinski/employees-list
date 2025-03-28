@@ -1,19 +1,17 @@
-package com.example.demo;
+package com.example.demo.employee;
 
-import com.example.demo.model.Employee;
-import com.example.demo.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class EmployeeManager {
+public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeManager(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 

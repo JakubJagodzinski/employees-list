@@ -1,19 +1,17 @@
-package com.example.demo;
+package com.example.demo.department;
 
-import com.example.demo.model.Department;
-import com.example.demo.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class DepartmentManager {
+public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
     @Autowired
-    public DepartmentManager(DepartmentRepository departmentRepository) {
+    public DepartmentService(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
 

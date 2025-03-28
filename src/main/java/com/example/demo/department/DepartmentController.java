@@ -1,6 +1,5 @@
-package com.example.demo;
+package com.example.demo.department;
 
-import com.example.demo.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,38 +7,38 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/departments")
-public class DepartmentApi {
+public class DepartmentController {
 
-    private final DepartmentManager departmentManager;
+    private final DepartmentService departmentService;
 
     @Autowired
-    public DepartmentApi(DepartmentManager departmentManager) {
-        this.departmentManager = departmentManager;
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
 
     @GetMapping("/")
     public Iterable<Department> findAll() {
-        return departmentManager.findAll();
+        return departmentService.findAll();
     }
 
     @GetMapping("/{id}")
     public Optional<Department> findById(@PathVariable Long id) {
-        return departmentManager.findById(id);
+        return departmentService.findById(id);
     }
 
     @PostMapping("/save")
     public Department save(@RequestBody Department department) {
-        return departmentManager.save(department);
+        return departmentService.save(department);
     }
 
     @PutMapping("/update")
     public Department update(@RequestBody Department department) {
-        return departmentManager.save(department);
+        return departmentService.save(department);
     }
 
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable Long id) {
-        departmentManager.deleteById(id);
+        departmentService.deleteById(id);
     }
 
 }

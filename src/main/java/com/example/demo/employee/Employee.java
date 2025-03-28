@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.employee;
 
+import com.example.demo.department.Department;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

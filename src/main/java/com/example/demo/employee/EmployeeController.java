@@ -1,6 +1,5 @@
-package com.example.demo;
+package com.example.demo.employee;
 
-import com.example.demo.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,33 +8,33 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
-public class EmployeeApi {
+public class EmployeeController {
 
-    private final EmployeeManager employeeManager;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public EmployeeApi(EmployeeManager employeeManager) {
-        this.employeeManager = employeeManager;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/")
     public Iterable<Employee> findAll() {
-        return employeeManager.findAll();
+        return employeeService.findAll();
     }
 
     @GetMapping(value = "/{id}")
     public Optional<Employee> findById(@PathVariable Long id) {
-        return employeeManager.findById(id);
+        return employeeService.findById(id);
     }
 
     @PostMapping("/save")
     public Employee save(@RequestBody Employee employee) {
-        return employeeManager.save(employee);
+        return employeeService.save(employee);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Employee> update(@RequestBody EmployeeDto employeeDto) {
-        Optional<Employee> existingEmployee = employeeManager.findById(employeeDto.getEmployeeId());
+        Optional<Employee> existingEmployee = employeeService.findById(employeeDto.getEmployeeId());
 
         if (existingEmployee.isPresent()) {
             if (employeeDto.getEmployeeId() != null) {
@@ -58,7 +57,7 @@ public class EmployeeApi {
                 existingEmployee.get().setSalary(employeeDto.getSalary());
             }
 
-            employeeManager.save(existingEmployee.get());
+            employeeService.save(existingEmployee.get());
             return ResponseEntity.ok(existingEmployee.get());
         } else {
             return ResponseEntity.notFound().build();
@@ -67,6 +66,6 @@ public class EmployeeApi {
 
     @DeleteMapping("/delete/{id}")
     public void deleteById(@PathVariable Long id) {
-        employeeManager.deleteById(id);
+        employeeService.deleteById(id);
     }
 }
