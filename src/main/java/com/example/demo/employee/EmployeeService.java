@@ -27,6 +27,32 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
+    public Optional<Employee> updateEmployee(EmployeeDto employeeDto) {
+        Optional<Employee> existingEmployee = employeeRepository.findById(employeeDto.getEmployeeId());
+
+        if (existingEmployee.isPresent()) {
+            Employee employee = existingEmployee.get();
+
+            if (employeeDto.getFirstName() != null) {
+                employee.setFirstName(employeeDto.getFirstName());
+            }
+            if (employeeDto.getLastName() != null) {
+                employee.setLastName(employeeDto.getLastName());
+            }
+            if (employeeDto.getJob() != null) {
+                employee.setJob(employeeDto.getJob());
+            }
+            if (employeeDto.getSalary() != null) {
+                employee.setSalary(employeeDto.getSalary());
+            }
+
+            employeeRepository.save(employee);
+            return Optional.of(employee);
+        } else {
+            return Optional.empty();
+        }
+    }
+
     public void deleteById(Long id) {
         employeeRepository.deleteById(id);
     }

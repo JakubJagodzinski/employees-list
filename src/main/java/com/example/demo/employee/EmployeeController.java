@@ -34,34 +34,9 @@ public class EmployeeController {
 
     @PutMapping("/update")
     public ResponseEntity<Employee> update(@RequestBody EmployeeDto employeeDto) {
-        Optional<Employee> existingEmployee = employeeService.findById(employeeDto.getEmployeeId());
+        Optional<Employee> updatedEmployee = employeeService.updateEmployee(employeeDto);
 
-        if (existingEmployee.isPresent()) {
-            if (employeeDto.getEmployeeId() != null) {
-                existingEmployee.get().setEmployeeId(employeeDto.getEmployeeId());
-            }
-
-            if (employeeDto.getFirstName() != null) {
-                existingEmployee.get().setFirstName(employeeDto.getFirstName());
-            }
-
-            if (employeeDto.getLastName() != null) {
-                existingEmployee.get().setLastName(employeeDto.getLastName());
-            }
-
-            if (employeeDto.getJob() != null) {
-                existingEmployee.get().setJob(employeeDto.getJob());
-            }
-
-            if (employeeDto.getSalary() != null) {
-                existingEmployee.get().setSalary(employeeDto.getSalary());
-            }
-
-            employeeService.save(existingEmployee.get());
-            return ResponseEntity.ok(existingEmployee.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return updatedEmployee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/delete/{id}")
